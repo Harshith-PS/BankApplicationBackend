@@ -15,7 +15,8 @@ import java.time.LocalDate;
 
 
 @SpringBootApplication
-public class BankApplication implements CommandLineRunner {
+public class BankApplication //implements CommandLineRunner 
+{
 
 	@Autowired
 	public CustomerService customerService;
@@ -29,14 +30,14 @@ public class BankApplication implements CommandLineRunner {
 		SpringApplication.run(BankApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		//getCustomer();
-		//addCustomer();
-		//updateAddress();
-		//deleteCustomer();
-		//deleteCustomerOnly();
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+//		//getCustomer();
+//		//addCustomer();
+//		//updateAddress();
+//		//deleteCustomer();
+//		//deleteCustomerOnly();
+//	}
 
 	private void addCustomer() {
 		try {

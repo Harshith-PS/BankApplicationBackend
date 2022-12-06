@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -105,6 +107,34 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		customerRepository.delete(customer);
 		
+	}
+
+	@Override
+	public List<CustomerDTO> getAllCustomers() throws BankException {
+		
+		List<CustomerDTO> listCustomerDTO = new ArrayList<CustomerDTO>();
+		Iterable<Customer> iterable = customerRepository.findAll();
+		for (Customer customer : iterable) {
+			CustomerDTO customerDTO = new CustomerDTO();
+			customerDTO.setCustomerId(customer.getCustomerId());
+			customerDTO.setDateOfBirth(customer.getDateOfBirth());
+			customerDTO.setEmailId(customer.getEmailId());
+			customerDTO.setName(customer.getName());
+			
+			AddressDTO addressDTO = new AddressDTO();
+			addressDTO.setAddressId(customer.getAddress().getAddressId());
+			addressDTO.setCity(customer.getAddress().getCity());
+			addressDTO.setStreet(customer.getAddress().getStreet());
+			
+			customerDTO.setAddress(addressDTO);
+			listCustomerDTO.add(customerDTO);
+		}
+		if(listCustomerDTO.isEmpty())
+		{
+			throw new BankException("Service.CUSTOMERS_NOT_FOUND");
+		}
+		
+		return listCustomerDTO;
 	}
 
 }
